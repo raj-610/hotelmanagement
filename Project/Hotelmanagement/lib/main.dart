@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hotelmanagement/pages/SignUp_Page.dart';
 import 'package:hotelmanagement/pages/login_page.dart';
 import 'package:hotelmanagement/pages/welcome_page.dart';
 void main() {
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
        
         ),
-      home: LoginPage(),
+      home: SignUp(),
     );
   }
 }
