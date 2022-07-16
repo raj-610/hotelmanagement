@@ -11,7 +11,7 @@ class SignUp extends StatelessWidget {
                 ),
               );
   } 
-  Widget button({@required String? buttonName,required Color color}){
+  Widget button({@required String? buttonName,required Color color,@required Color? textColor}){
     return Container(
                     width: 120,
                     child: RaisedButton(
@@ -46,30 +46,38 @@ class SignUp extends StatelessWidget {
                 fontSize: 40,
                 ),
               ),
-              Column(
-                children: [
-              textField(
-                hintText: "Email", 
-                  ),
-              textField(
-                hintText: "Username", 
-                  ),
-              textField(
-                hintText: "Password", 
-                  ),
-              textField(
-                hintText: "Confirm Password", 
-                  ),
-                ],
+              Container(
+                height: 250,
+                child: Column(
+                  children: [
+                textField(
+                  hintText: "Email", 
+                    ),
+                textField(
+                  hintText: "Username", 
+                    ),
+                textField(
+                  hintText: "Password", 
+                    ),
+                textField(
+                  hintText: "Confirm Password", 
+                    ),
+                  ],
+                ),
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   button(
                     buttonName: "Cancel", 
-                    color: Colors.grey),
+                    color: Colors.grey,
+                    textColor: Colors.black),
+                    SizedBox(width: 40,),
                   button(
                     buttonName: "Register", 
-                    color: Colors.red)
+                    color: Colors.red,
+                    textColor: Colors.white
+                    ),
                     
                 ],
               ),
