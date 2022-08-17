@@ -1,17 +1,20 @@
-import 'package:flutter/material.dart';
+// ignore_for_file: file_names, prefer_const_constructors, deprecated_member_use, prefer_const_literals_to_create_immutables
 
-class LoginPage extends StatelessWidget {
+import 'package:flutter/material.dart';
+import 'package:hotelmanagement/widget/my_text_field.dart';
+
+ class LoginPage extends StatelessWidget {
   const LoginPage({ Key? key }) : super(key: key);
-  Widget textField({@required String? hintText,@required IconData? icon,@required Color? iconColor, @required bool? obscureText}){
-    return TextFormField(
-                decoration: InputDecoration(
-                  prefixIcon: Icon(icon,color: Colors.black,),
-                  hintText: hintText,
-                  hintStyle: TextStyle(color: Colors.black),
-                  enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.grey), )
-                ),
-              );
-  }
+  // Widget textField({@required String? hintText,@required IconData? icon,@required Color? iconColor, @required bool? obscureText}){
+  //   return TextFormField(
+  //               decoration: InputDecoration(
+  //                 prefixIcon: Icon(icon,color: Colors.black,),
+  //                 hintText: hintText,
+  //                 hintStyle: TextStyle(color: Colors.black),
+  //                 enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.grey), )
+  //               ),
+  //             );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -40,19 +43,19 @@ class LoginPage extends StatelessWidget {
             ),
             Column(
               children: [
-                textField(
-                  hintText: "Username",
-                  icon: Icons.person_outline,
-                  ),
+                MyTextField(
+                  controller: null,
+                  hintText: 'Email', 
+                  obscureText: false),
                   SizedBox(height: 30,),
-                textField(
-                  obscureText: true,
-                  hintText: "Password",
-                  icon: Icons.lock_outline,
-                  ),
+
+                MyTextField(
+                  controller: null,
+                  hintText: 'Password', 
+                  obscureText: true),
               ],
             ),
-            Container(
+            SizedBox(
               height: 60,
               width: 200,
               child:RaisedButton(
@@ -80,4 +83,4 @@ class LoginPage extends StatelessWidget {
      
     );
   }
-} 
+}
