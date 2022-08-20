@@ -1,8 +1,7 @@
-import 'dart:ui';
+// ignore_for_file: unnecessary_import, file_names, avoid_print, prefer_final_fields, prefer_const_constructors
 
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
-import 'package:hotelmanagement/widget/my_text_field.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -50,6 +49,7 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      
       decoration: BoxDecoration(
         image: DecorationImage(
             image: AssetImage('assets/register.png'), fit: BoxFit.cover),
@@ -63,151 +63,149 @@ class _SignUpState extends State<SignUp> {
         body: SingleChildScrollView(
           child: Form(
             autovalidateMode: AutovalidateMode.always,
-            child: Container(
-              child: Column(
-                children: [
-                  Stack(
-                    key: formKey,
-                    children: [
-                      Container(
-                        padding: EdgeInsets.only(left: 35, top: 20),
-                        child: Text(
-                          'Create\nAccount',
-                          style: TextStyle(color: Colors.white, fontSize: 33),
-                        ),
+            child: Column(
+              children: [
+                Stack(
+                  key: formKey,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.only(left: 35, top: 20),
+                      child: Text(
+                        'Create\nAccount',
+                        style: TextStyle(color: Colors.white, fontSize: 33),
                       ),
-                      Container(
-                        padding: EdgeInsets.only(
-                            top: MediaQuery.of(context).size.height * 0.20),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(left: 35, right: 35),
-                              child: Column(
-                                children: <Widget>[
-                                  TextFormField(
-                                    controller: _name,
-                                    decoration: InputDecoration(
-                                        border: OutlineInputBorder(
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(
+                          top: MediaQuery.of(context).size.height * 0.23),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            margin: EdgeInsets.only(left: 35, right: 35),
+                            child: Column(
+                              children: <Widget>[
+                                TextFormField(
+                                  controller: _name,
+                                  decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                        borderSide: BorderSide(
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      labelText: "Name",
+                                      labelStyle: TextStyle(
+                                          color: Colors.white, fontSize: 20)),
+                                  validator: validatepass,
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                TextFormField(
+                                  controller: _email,
+                                  decoration: InputDecoration(
+                                      border: OutlineInputBorder(
                                           borderRadius:
-                                              BorderRadius.circular(10.0),
-                                          borderSide: BorderSide(
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                        labelText: "Name",
-                                        labelStyle: TextStyle(
-                                            color: Colors.white, fontSize: 20)),
-                                    validator: validatepass,
-                                  ),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  TextFormField(
-                                    controller: _email,
-                                    decoration: InputDecoration(
-                                        border: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(10.0)),
-                                        labelText: "Email",
-                                        labelStyle: TextStyle(
-                                            color: Colors.white, fontSize: 20)),
-                                    validator: MultiValidator([
-                                      RequiredValidator(
-                                          errorText: "Required *"),
-                                      EmailValidator(
-                                          errorText: "Not A Valid Email"),
-                                    ]),
-                                  ),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  TextFormField(
-                                    controller: _pass,
-                                    decoration: InputDecoration(
-                                        border: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(10.0)),
-                                        labelText: "Password",
-                                        labelStyle: TextStyle(
-                                            color: Colors.white, fontSize: 20)),
-                                    validator: validatepass,
-                                  ),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  TextFormField(
-                                    controller: _cpass,
-                                    decoration: InputDecoration(
-                                        border: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(10.0)),
-                                        labelText: "Confirm Password",
-                                        labelStyle: TextStyle(
-                                            color: Colors.white, fontSize: 20)),
-                                    validator: validatepass,
-                                  ),
-                                  SizedBox(
-                                    height: 30,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        'Sign Up',
+                                              BorderRadius.circular(10.0)),
+                                      labelText: "Email",
+                                      labelStyle: TextStyle(
+                                          color: Colors.white, fontSize: 20)),
+                                  validator: MultiValidator([
+                                    RequiredValidator(
+                                        errorText: "Required *"),
+                                    EmailValidator(
+                                        errorText: "Not A Valid Email"),
+                                  ]),
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                TextFormField(
+                                  controller: _pass,
+                                  decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0)),
+                                      labelText: "Password",
+                                      labelStyle: TextStyle(
+                                          color: Colors.white, fontSize: 20)),
+                                  validator: validatepass,
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                TextFormField(
+                                  controller: _cpass,
+                                  decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0)),
+                                      labelText: "Confirm Password",
+                                      labelStyle: TextStyle(
+                                          color: Colors.white, fontSize: 20)),
+                                  validator: validatepass,
+                                ),
+                                SizedBox(
+                                  height: 25,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Sign Up',
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 27,
+                                          fontWeight: FontWeight.w700),
+                                    ),
+                                    CircleAvatar(
+                                      radius: 30,
+                                      backgroundColor: Color(0xff4c505b),
+                                      child: IconButton(
+                                          color: Colors.white,
+                                          onPressed: () {},
+                                          icon: Icon(
+                                            Icons.arrow_forward,
+                                          )),
+                                    )
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 30,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.pushNamed(context, 'register');
+                                      },
+                                      child: Text(
+                                        'Sign In',
+                                        textAlign: TextAlign.left,
                                         style: TextStyle(
+                                            decoration:
+                                                TextDecoration.underline,
                                             color: Colors.white,
-                                            fontSize: 27,
-                                            fontWeight: FontWeight.w700),
+                                            fontSize: 18),
                                       ),
-                                      CircleAvatar(
-                                        radius: 30,
-                                        backgroundColor: Color(0xff4c505b),
-                                        child: IconButton(
-                                            color: Colors.white,
-                                            onPressed: () {},
-                                            icon: Icon(
-                                              Icons.arrow_forward,
-                                            )),
-                                      )
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 40,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      TextButton(
-                                        onPressed: () {
-                                          Navigator.pushNamed(context, 'login');
-                                        },
-                                        child: Text(
-                                          'Sign In',
-                                          textAlign: TextAlign.left,
-                                          style: TextStyle(
-                                              decoration:
-                                                  TextDecoration.underline,
-                                              color: Colors.white,
-                                              fontSize: 18),
-                                        ),
-                                        style: ButtonStyle(),
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ],
-              ),
+                                      style: ButtonStyle(),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ],
             ),
           ),
         ),

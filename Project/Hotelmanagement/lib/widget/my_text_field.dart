@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors_in_immutables, prefer_const_constructors
+
 import 'package:flutter/material.dart';
 
 class MyTextField extends StatelessWidget {
@@ -7,7 +9,7 @@ class MyTextField extends StatelessWidget {
   MyTextField(
       {Key? key,
       @required this.hintText,
-      @required this.obscureText = false,
+      this.obscureText = false,
       required this.controller})
       : super(key: key);
 

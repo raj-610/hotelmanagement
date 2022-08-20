@@ -1,6 +1,10 @@
+// ignore_for_file: file_names, prefer_const_constructors
+
 import 'package:flutter/material.dart';
 
 class WelcomePage extends StatelessWidget {
+   WelcomePage({Key? key}) : super(key: key);
+
   Widget button({
     @required String? name,
     Color? color,
@@ -30,35 +34,31 @@ class WelcomePage extends StatelessWidget {
       body: Column(
         children: [
           Expanded(
-            child: Container(
-              child: Center(
-                child: Image.asset('images/logo.jpg'),
-              ),
+            child: Center(
+              child: Image.asset('images/logo.jpg'),
             ),
           ),
           Expanded(
-            child: Container(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text(
-                    "Welcome To Tastee",
-                    style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.green,
-                    ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Text(
+                  "Welcome To Tastee",
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.green,
                   ),
-                  Column(
-                    children: [
-                      Text("Order food form our restaueant and"),
-                      Text("Make reservation in real- time")
-                    ],
-                  ),
-                  button(name: 'Login', color: Colors.green,textColor: Colors.white),
-                  button(name: 'SignUp', color: Colors.white,textColor: Colors.green),
-                ],
-              ),
+                ),
+                Column(
+                  children: [
+                    Text("Order food form our restaueant and"),
+                    Text("Make reservation in real- time")
+                  ],
+                ),
+                button(name: 'Login', color: Colors.green,textColor: Colors.white),
+                button(name: 'SignUp', color: Colors.white,textColor: Colors.green),
+              ],
             ),
           )
         ],
