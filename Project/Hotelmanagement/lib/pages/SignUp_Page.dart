@@ -1,152 +1,214 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 import 'package:hotelmanagement/widget/my_text_field.dart';
 
 class SignUp extends StatefulWidget {
-   SignUp({ Key? key }) : super(key: key);
-   _SignUpState createState() => _SignUpState();
+  const SignUp({Key? key}) : super(key: key);
+
+  @override
+  _SignUpState createState() => _SignUpState();
 }
-class _SignUpState extends State<SignUp>{
-  static String pattern =
-      r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
 
-  RegExp regExp = RegExp(pattern);
-  TextEditingController FirstName = TextEditingController();
-  TextEditingController LastName = TextEditingController();
-  TextEditingController Email = TextEditingController();
-  TextEditingController Password = TextEditingController();
+class _SignUpState extends State<SignUp> {
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  GlobalKey<ScaffoldState> globalKey=GlobalKey<ScaffoldState>();
-
-  void validation(){
-    if(FirstName.text.trim().isEmpty || FirstName.text.trim() == null){
-      globalKey.currentState?.showSnackBar(
-        SnackBar(
-          content: Text(
-            "FirstName is empty",
-            ),
-          ),
-        );
-        return;
-    }
-    if(LastName.text.trim().isEmpty || LastName.text.trim() == null){
-      globalKey.currentState?.showSnackBar(
-        SnackBar(
-          content: Text(
-            "LastName is empty",
-            ),
-          ),
-        );
-        return;
-    }
-    if(Email.text.trim().isEmpty || Email.text.trim() == null){
-      globalKey.currentState?.showSnackBar(
-        SnackBar(
-          content: Text(
-            "Email is empty",
-            ),
-          ),
-        );
-        return;
-    }
-    if(Password.text.trim().isEmpty || Password.text.trim() == null){
-      globalKey.currentState?.showSnackBar(
-        SnackBar(
-          content: Text(
-            "Password is empty",
-            ),
-          ),
-        );
-        return;
+  void validate() {
+    if (formKey.currentState!.validate) {
+      print("Validated");
+    } else {
+      print("Not Validated");
     }
   }
 
-  Widget button({@required String? buttonName,
-                required Color color,
-                @required Color? textColor,
-                @required Function? ontap}){
-    return Container(
-                    width: 120,
-                    child: RaisedButton(
-                    color: color,
-                    shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                        ), 
-                    child: Text(
-                      buttonName!,
-                      style: TextStyle(fontSize: 20),
-                      ),
-                      onPressed: () {},
-                    ),
-                  );
+  String? validatepass(value) {
+    if (value!.isEmpty) {
+      return "Required";
+    } else if (value.length < 6) {
+      return "Should Be At Least 6 characters";
+    } else if (value.length > 15) {
+      return "Should Not Be More Than 15 Charaters";
+    } else {
+      return null;
+    }
   }
+
+  String? validatename(value) {
+    if (value!.isEmpty) {
+      return "Should Enter Name";
+    } else {
+      return null;
+    }
+  }
+
+  TextEditingController _name = TextEditingController();
+  TextEditingController _email = TextEditingController();
+  TextEditingController _pass = TextEditingController();
+  TextEditingController _cpass = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: globalKey,
-      backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 50),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Text(
-                "Sign Up",style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-                fontSize: 40,
-                ),
-              ),
-              Container(
-                height: 250,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                MyTextField(
-                  controller: FirstName,
-                  obscureText: false,
-                  hintText: "First Name"
-                ),
-                MyTextField(
-                  controller: LastName,
-                  obscureText: false,
-                  hintText: "Last Name"
-                ),
-                MyTextField(
-                  controller: Email,
-                  obscureText: false,
-                  hintText: "Email"
-                ),
-                MyTextField(
-                  controller: Password,
-                  obscureText: true,
-                  hintText: "Password"
-                ),
-                  ],
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+            image: AssetImage('assets/register.png'), fit: BoxFit.cover),
+      ),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+        ),
+        body: SingleChildScrollView(
+          child: Form(
+            autovalidateMode: AutovalidateMode.always,
+            child: Container(
+              child: Column(
                 children: [
-                  button(
-                    buttonName: "Cancel", 
-                    color: Colors.grey,
-                    textColor: Colors.white),
-                    SizedBox(width: 40,
-                  ),
-                  button(
-                    ontap:(){   
-                      validation();
-                    },
-                    buttonName: "Register", 
-                    color: Colors.red,
-                    textColor: Colors.white
+                  Stack(
+                    key: formKey,
+                    children: [
+                      Container(
+                        padding: EdgeInsets.only(left: 35, top: 20),
+                        child: Text(
+                          'Create\nAccount',
+                          style: TextStyle(color: Colors.white, fontSize: 33),
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(
+                            top: MediaQuery.of(context).size.height * 0.20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(left: 35, right: 35),
+                              child: Column(
+                                children: <Widget>[
+                                  TextFormField(
+                                    controller: _name,
+                                    decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                          borderSide: BorderSide(
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                        labelText: "Name",
+                                        labelStyle: TextStyle(
+                                            color: Colors.white, fontSize: 20)),
+                                    validator: validatepass,
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  TextFormField(
+                                    controller: _email,
+                                    decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0)),
+                                        labelText: "Email",
+                                        labelStyle: TextStyle(
+                                            color: Colors.white, fontSize: 20)),
+                                    validator: MultiValidator([
+                                      RequiredValidator(
+                                          errorText: "Required *"),
+                                      EmailValidator(
+                                          errorText: "Not A Valid Email"),
+                                    ]),
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  TextFormField(
+                                    controller: _pass,
+                                    decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0)),
+                                        labelText: "Password",
+                                        labelStyle: TextStyle(
+                                            color: Colors.white, fontSize: 20)),
+                                    validator: validatepass,
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  TextFormField(
+                                    controller: _cpass,
+                                    decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0)),
+                                        labelText: "Confirm Password",
+                                        labelStyle: TextStyle(
+                                            color: Colors.white, fontSize: 20)),
+                                    validator: validatepass,
+                                  ),
+                                  SizedBox(
+                                    height: 30,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        'Sign Up',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 27,
+                                            fontWeight: FontWeight.w700),
+                                      ),
+                                      CircleAvatar(
+                                        radius: 30,
+                                        backgroundColor: Color(0xff4c505b),
+                                        child: IconButton(
+                                            color: Colors.white,
+                                            onPressed: () {},
+                                            icon: Icon(
+                                              Icons.arrow_forward,
+                                            )),
+                                      )
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 40,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.pushNamed(context, 'login');
+                                        },
+                                        child: Text(
+                                          'Sign In',
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                              decoration:
+                                                  TextDecoration.underline,
+                                              color: Colors.white,
+                                              fontSize: 18),
+                                        ),
+                                        style: ButtonStyle(),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      )
+                    ],
                   ),
                 ],
-              )
-            ],
+              ),
+            ),
           ),
         ),
       ),
