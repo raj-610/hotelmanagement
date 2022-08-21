@@ -1,6 +1,8 @@
-// ignore_for_file: unnecessary_import, file_names, avoid_print, prefer_final_fields, prefer_const_constructors
+// ignore_for_file: unnecessary_import, file_names, avoid_print, prefer_final_fields, prefer_const_constructors, non_constant_identifier_names
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
 import 'package:form_field_validator/form_field_validator.dart';
 
 class SignUp extends StatefulWidget {
@@ -11,7 +13,7 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  
 
   void validate() {
     if (formKey.currentState!.validate) {
@@ -33,6 +35,7 @@ class _SignUpState extends State<SignUp> {
     }
   }
 
+  
   String? validatename(value) {
     if (value!.isEmpty) {
       return "Should Enter Name";
@@ -41,10 +44,41 @@ class _SignUpState extends State<SignUp> {
     }
   }
 
-  TextEditingController _name = TextEditingController();
+  UserCredential? userCredential;
+  TextEditingController _fname = TextEditingController();
   TextEditingController _email = TextEditingController();
+  TextEditingController _lname = TextEditingController();
   TextEditingController _pass = TextEditingController();
-  TextEditingController _cpass = TextEditingController();
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+
+  Future sendData() async {
+    
+    try {
+   userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+    email: _email.text,
+    password: _pass.text
+  );
+
+  
+  var FirebaseFirestore;
+  await FirebaseFirestore.instance.collection('userData').doc(userCredential!.user!.uid).set({
+    'firstName':_fname,
+    'lastName':_lname,
+    'email':_email,
+    'userid':userCredential!.user!.uid,
+    'password':_pass
+  });
+} on FirebaseAuthException catch (e) {
+  if (e.code == 'weak-password') {
+    print('The password provided is too weak.');
+  } else if (e.code == 'email-already-in-use') {
+    print('The account already exists for that email.');
+  }
+} catch (e) {
+  print(e);
+}
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +120,7 @@ class _SignUpState extends State<SignUp> {
                             child: Column(
                               children: <Widget>[
                                 TextFormField(
-                                  controller: _name,
+                                  controller: _fname,
                                   decoration: InputDecoration(
                                       border: OutlineInputBorder(
                                         borderRadius:
@@ -95,10 +129,24 @@ class _SignUpState extends State<SignUp> {
                                           color: Colors.white,
                                         ),
                                       ),
-                                      labelText: "Name",
+                                      labelText: "First Name",
                                       labelStyle: TextStyle(
                                           color: Colors.white, fontSize: 20)),
-                                  validator: validatepass,
+                                  validator: validatename,
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                TextFormField(
+                                  controller: _lname,
+                                  decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0)),
+                                      labelText: "Last Name",
+                                      labelStyle: TextStyle(
+                                          color: Colors.white, fontSize: 20)),
+                                  validator: validatename
                                 ),
                                 SizedBox(
                                   height: 20,
@@ -129,20 +177,6 @@ class _SignUpState extends State<SignUp> {
                                           borderRadius:
                                               BorderRadius.circular(10.0)),
                                       labelText: "Password",
-                                      labelStyle: TextStyle(
-                                          color: Colors.white, fontSize: 20)),
-                                  validator: validatepass,
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                TextFormField(
-                                  controller: _cpass,
-                                  decoration: InputDecoration(
-                                      border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10.0)),
-                                      labelText: "Confirm Password",
                                       labelStyle: TextStyle(
                                           color: Colors.white, fontSize: 20)),
                                   validator: validatepass,
